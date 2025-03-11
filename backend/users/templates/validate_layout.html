@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código de Validação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .email-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .email-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .email-header h1 {
+            color: #2d3e50;
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .email-header p {
+            font-size: 16px;
+            color: #777;
+            margin: 5px 0 0;
+        }
+
+        .code-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+
+        .code-container h2 {
+            font-size: 32px;
+            color: #4e73df;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Código de Validação</h1>
+            <p>Estamos confirmando a sua solicitação. Por favor, insira o código abaixo para validar sua conta.</p>
+        </div>
+
+        <div class="code-container">
+            <h2>CÓDIGO:  {{ codigo_validacao }}</h2> <!-- Aqui o código gerado vai ser inserido dinamicamente -->
+        </div>
+    </div>
+
+</body>
+</html>

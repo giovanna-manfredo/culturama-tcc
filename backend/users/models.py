@@ -1,5 +1,3 @@
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import (
@@ -11,40 +9,26 @@ from validate_docbr import CPF
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email:str, cpf:str, date_of_birth:date, password=None, **extra_fields):
-        self.validation_email(email)
-        self.validate_cpf(cpf)
-        self.is_adult(date_of_birth)
+    def create_user(self, email, cpf:str, date_of_birth:date, password=None, **extra_fields):
 
-        user = self.model(email=email, cpf=cpf, date_of_birth=date_of_birth, **extra_fields)
-        user.set_password(password)  
-        user.save(using=self._db)  
+        user = self.model(
+            email=self.normalize_email(email),
+            cpf=cpf,
+            date_of_birth=date_of_birth,
+            password=password,
+            **extra_fields
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
         return user
-
+    
     def create_superuser(self, email, cpf, date_of_birth, password=None, **extra_fields):
         
         extra_fields.setdefault('is_staff', True)  
         extra_fields.setdefault('is_superuser', True)  
 
-        return self.create_user(email, cpf, date_of_birth, password, **extra_fields)
-
-    def validation_email(self, value):
-        try:
-            validate_email(value)
-        except ValidationError as e:
-             raise ValidationError("Email inválido.")
-
-    def is_adult(self, value:date):
-        today = date.today()
-        if today.year - value.year <= 18:
-            raise ValidationError("Idade inválida.")
-        
-    def validate_cpf(self, value):
-        cpf = CPF()
-        if not cpf.validate(value):
-            raise ValidationError("CPF inválido.")
-
-
+        return self.create_user(email=email, cpf=cpf, date_of_birth=date_of_birth, password=password, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, blank=False, null=False)
