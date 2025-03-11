@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "backend"
+name = "src"
 version = "0.1.0"
 description = "Culturama is an application developed as part of the Final Course Work (TCC) of Etec de Taboão da Serra to promote cultural events."
 authors = ["Giovanna Candido Manfredo <giovannamanfredo.dev@gmail.com>"]
